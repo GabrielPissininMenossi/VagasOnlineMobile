@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2f2c79"
+    android:orientation="vertical"
+    tools:context=".VagasFragment">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:shadowColor="#F0F0F0"
+        android:shadowDx="4"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:text="Vagas Online"
+        android:textColor="#9f90ea"
+        android:textSize="34dp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#3A3691"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="12dp"
+        android:padding="10dp" />
+</LinearLayout>

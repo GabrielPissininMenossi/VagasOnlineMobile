@@ -11,7 +11,7 @@ public class RetrofitVagasConfig
 
     public RetrofitVagasConfig()
     {
-        retrofit = new Retrofit.Builder().baseUrl("http://172.17.20.60:8080/apis/vagas/").
+        retrofit = new Retrofit.Builder().baseUrl("http://192.168.15.7:8080/apis/vagas/").
                 addConverterFactory(GsonConverterFactory.create()).build();
     }
     public VagasService getVagasService()

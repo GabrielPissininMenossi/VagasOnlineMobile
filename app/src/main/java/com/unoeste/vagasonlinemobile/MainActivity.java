@@ -2,6 +2,8 @@ package com.unoeste.vagasonlinemobile;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -10,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.unoeste.vagasonlinemobile.configs.RetrofitVagasConfig;
 import com.unoeste.vagasonlinemobile.entities.Vaga;
@@ -22,53 +26,40 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView;
+    private FragmentManager fragmentManager;
+    private VagasFragment vagasFragment = new VagasFragment();
+
+    private FrameLayout frameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.frameLayout), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        listView = findViewById(R.id.listView);
-        getAllVagas();
+        frameLayout = findViewById(R.id.frameLayout);
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(frameLayout.getId(), vagasFragment);
+        fragmentTransaction.commit();
     }
-    public void getAllVagas()
+    public void cadastrar(Vaga vaga)
     {
-        Call<List<Vaga>> call = new RetrofitVagasConfig().getVagasService().getAll();
-        call.enqueue(new Callback<List<Vaga>>() {
-            @Override
-            public void onResponse(Call<List<Vaga>> call, Response<List<Vaga>> response)
-            {
-                ArrayAdapter<Vaga> adapter;
-                if (response.isSuccessful())
-                {
-                    if (response.body() != null)
-                    {
-                        List<Vaga> vagaList = response.body();
-                        adapter = new ArrayAdapter<Vaga>(getApplicationContext(), android.R.layout.simple_list_item_1, vagaList);
-                        listView.setAdapter(adapter);
-                    }
-                    else
-                    {
-                        Toast.makeText(MainActivity.this, "Nenhuma Vaga Encontrada", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Erro Ao Consultar", Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Vaga>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Falha: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        CadastrarFragment cadastrarFragment = new CadastrarFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("registro", vaga.getRegistro());
+        cadastrarFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(frameLayout.getId(), cadastrarFragment);
+        fragmentTransaction.commit();
+    }
+    public void voltar()
+    {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(frameLayout.getId(), vagasFragment);
+        fragmentTransaction.commit();
     }
 }
