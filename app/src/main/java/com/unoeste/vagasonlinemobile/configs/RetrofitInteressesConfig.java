@@ -12,7 +12,7 @@ public class RetrofitInteressesConfig
 
     public RetrofitInteressesConfig()
     {
-        retrofit = new Retrofit.Builder().baseUrl("http://192.168.15.7:8080/apis/").
+        retrofit = new Retrofit.Builder().baseUrl("http://192.168.15.6:8080/apis/").
                 addConverterFactory(GsonConverterFactory.create()).build();
     }
     public InteressesService getInteressesService()

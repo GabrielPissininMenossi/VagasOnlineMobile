@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unoeste.vagasonlinemobile.configs.RetrofitInteressesConfig;
@@ -39,6 +40,7 @@ public class CadastrarFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private EditText etNome, etCpf, etEmail, etTelefone, etFormacao;
+    private TextView tfCargo, tfNomeFantasia;
     private Button btConfirmar, btCancelar;
     private MainActivity mainActivity;
     // TODO: Rename and change types of parameters
@@ -94,6 +96,10 @@ public class CadastrarFragment extends Fragment {
         etEmail = view.findViewById(R.id.etEmail);
         etTelefone = view.findViewById(R.id.etTelefone);
         etFormacao = view.findViewById(R.id.etFormacao);
+        tfCargo = view.findViewById(R.id.tfCargo);
+        tfNomeFantasia = view.findViewById(R.id.tfNomeFantasia);
+        tfCargo.setText(getArguments().getString("cargo"));
+        tfNomeFantasia.setText(getArguments().getString("nome_fantasia"));
         btCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

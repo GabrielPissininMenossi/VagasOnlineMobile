@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         CadastrarFragment cadastrarFragment = new CadastrarFragment();
         Bundle bundle = new Bundle();
         bundle.putString("registro", vaga.getRegistro());
+        bundle.putString("nome_fantasia", vaga.getEmpresa().getNome_fantasia());
+        bundle.putString("cargo", vaga.getCargo());
         cadastrarFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(frameLayout.getId(), cadastrarFragment);
